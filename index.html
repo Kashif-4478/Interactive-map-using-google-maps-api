@@ -1,0 +1,1629 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Map</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100vh;
+            width: 100vw;
+        }
+        #sidebar-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 5;
+            width: 300px;
+        }
+        #sidebar-title {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            display: block;
+        }
+        #sidebar {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            box-sizing: border-box;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div id="sidebar-container">
+        <div id="sidebar-title"><strong>Frontier Waste Solutions</strong></div>
+        <div id="sidebar"></div>
+    </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWhNga9OWJf_-Qw9p_9gnvil6mXgQuQlk&callback=initMap" async defer></script>
+    <script>
+        // Function to open a website URL in a new tab
+        function openWebsite(url) {
+            window.open(url, '_blank');
+        }
+
+        // Initialize the map
+        function initMap() {
+    var bounds = new google.maps.LatLngBounds();
+    var mapOptions = {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+    };
+
+    // Creating the map
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+
+            // Your cities array
+            
+            var cities = [
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.8300338,
+        "lng": -96.6904831,
+        "website": "https://frontierwaste.com/",
+        "address": "600 Highport Road",
+        "locality": "Pottsboro",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "75076-3267",
+        "primaryPhone": "(888) 854-2905",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.5735144,
+        "lng": -96.67355429999999,
+        "website": "https://frontierwaste.com/",
+        "address": "6301 South Interstate 45",
+        "locality": "Wilmer",
+        "Administrative": "Texas",
+        "Country": "US",
+        "postalCode": "75172",
+        "primaryPhone": "(888) 854-2905",
+        "hours": {
+            "Monday_hours": "06:00-17:30",
+            "Tuesday_hours": "06:00-17:30",
+            "Wednesday_hours": "06:00-17:30",
+            "Thursday_hours": "06:00-17:30",
+            "Friday_hours": "06:00-17:30",
+            "Saturday_hours": "06:00-13:00",
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.7872315,
+        "lng": -96.794157,
+        "website": "https://frontierwaste.com/dallas-dumpster-rental/",
+        "address": "2323 Bryan Street, Suite 2620",
+        "locality": "Dallas",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "75201",
+        "primaryPhone": "(888) 854-2905",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 30.8834543,
+        "lng": -96.61258939999999,
+        "website": "https://frontierwaste.com/",
+        "address": "901 Vaughn Ln",
+        "locality": "Hearne",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "77859",
+        "primaryPhone": "(888) 854-2905",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 30.046122,
+        "lng": -95.0369896,
+        "website": "https://frontierwaste.com/",
+        "address": "10185 Farm to Market 1960",
+        "locality": "Old River-Winfree",
+        "Administrative": "Texas",
+        "Country": "US",
+        "postalCode": "77535",
+        "primaryPhone": "(936) 258-9035",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.0125999,
+        "lng": -97.0643386,
+        "website": "https://frontierwaste.com/",
+        "address": "101 Jennings Pkwy",
+        "locality": "Hillsboro",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "76645",
+        "primaryPhone": "(254) 221-0705",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.8832749,
+        "lng": -97.9413941,
+        "website": "https://frontierwaste.com/",
+        "address": "16910 State Highway 123",
+        "locality": "San Marcos",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "78666",
+        "primaryPhone": "(888) 854-2905",
+        "hours": {
+            "Monday_hours": "07:00-16:00",
+            "Tuesday_hours": "07:00-16:00",
+            "Wednesday_hours": "07:00-16:00",
+            "Thursday_hours": "07:00-16:00",
+            "Friday_hours": "07:00-16:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.3784838,
+        "lng": -98.3015278,
+        "website": "https://frontierwaste.com/san-antonio-trash-pickup-services/",
+        "address": "9445 TX-106 Loop #106",
+        "locality": "San Antonio",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "78263",
+        "primaryPhone": "(888) 854-2905",
+        "hours": {
+            "Monday_hours": "07:00-16:00",
+            "Tuesday_hours": "07:00-16:00",
+            "Wednesday_hours": "07:00-16:00",
+            "Thursday_hours": "07:00-16:00",
+            "Friday_hours": "07:00-16:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.0916946,
+        "lng": -97.29207489999999,
+        "website": "https://frontierwaste.com/",
+        "address": "805 Topeka Ave",
+        "locality": "Justin",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "76247",
+        "primaryPhone": "(888) 579-2845",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 27.7744635,
+        "lng": -97.4594132,
+        "website": "https://frontierwaste.com/corpus-christi-trash-pickup-services/",
+        "address": "550 Flato Road",
+        "locality": "Corpus Christi",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "78405",
+        "primaryPhone": "(361) 289-5588",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": "08:00-12:00",
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.5076234,
+        "lng": -97.63852680000001,
+        "website": "https://frontierwaste.com/",
+        "address": "8311 Red Rock Rd.",
+        "locality": "Cresson",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "76035",
+        "primaryPhone": "(888) 579-2845",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.6012767,
+        "lng": -95.31883599999999,
+        "website": "https://frontierwaste.com/",
+        "address": "5959 S Sam Houston Pkwy E",
+        "locality": "Houston",
+        "Administrative": "TX",
+        "Country": "US",
+        "postalCode": "77048",
+        "primaryPhone": "(936) 258-9035",
+        "hours": {
+            "Monday_hours": "08:00-17:00",
+            "Tuesday_hours": "08:00-17:00",
+            "Wednesday_hours": "08:00-17:00",
+            "Thursday_hours": "08:00-17:00",
+            "Friday_hours": "08:00-17:00",
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 27.7749017113163,
+        "lng": -97.4592296544014,
+        "website": null,
+        "address": null,
+        "locality": "Aransas Pass",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.7287413,
+        "lng": -96.62277139999999,
+        "website": null,
+        "address": null,
+        "locality": "Balch Springs",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.5989517,
+        "lng": -97.0894496,
+        "website": "https://frontierwaste.com/city-of-bellmead/",
+        "address": null,
+        "locality": "Bellmead",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.1426501,
+        "lng": -97.39723819999999,
+        "website": null,
+        "address": null,
+        "locality": "Blum",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.16518169999999,
+        "lng": -96.6769217,
+        "website": null,
+        "address": null,
+        "locality": "Bremond",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 30.9779651,
+        "lng": -96.6738627,
+        "website": null,
+        "address": null,
+        "locality": "Calvert",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.7362421,
+        "lng": -96.8869481,
+        "website": null,
+        "address": null,
+        "locality": "Cockrell Hill",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.1784832,
+        "lng": -97.2580677,
+        "website": null,
+        "address": null,
+        "locality": "Covington",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 30.046122,
+        "lng": -95.0369896,
+        "website": "https://www.cityofdaytontx.com/government/departments/public-works/trash-collection",
+        "address": null,
+        "locality": "Dayton",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.2346721,
+        "lng": -97.7554986,
+        "website": "https://frontierwaste.com/city-of-glen-rose/",
+        "address": null,
+        "locality": "Glen Rose",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.449029,
+        "lng": -97.5266886,
+        "website": null,
+        "address": null,
+        "locality": "Godley",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.5016257,
+        "lng": -97.4524926,
+        "website": null,
+        "address": null,
+        "locality": "Gonzales",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.2704245,
+        "lng": -97.17917589999999,
+        "website": null,
+        "address": null,
+        "locality": "Grandview",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.5243379,
+        "lng": -96.5338693,
+        "website": null,
+        "address": null,
+        "locality": "Groesbeck",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 30.8834543,
+        "lng": -96.61258939999999,
+        "website": null,
+        "address": null,
+        "locality": "Hearne",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.5611837,
+        "lng": -98.6802212,
+        "website": null,
+        "address": null,
+        "locality": "Helotes",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.9829253,
+        "lng": -98.0336454,
+        "website": null,
+        "address": null,
+        "locality": "Hico",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.0793515,
+        "lng": -96.2038502,
+        "website": null,
+        "address": null,
+        "locality": "Hilltop Lakes",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.5087196,
+        "lng": -96.61221169999999,
+        "website": "https://frontierwaste.com/city-of-howe/",
+        "address": null,
+        "locality": "Howe",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.9851488,
+        "lng": -97.87197409999999,
+        "website": null,
+        "address": null,
+        "locality": "Iredell",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.1840381,
+        "lng": -96.8847194,
+        "website": null,
+        "address": null,
+        "locality": "Italy",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 28.8191468,
+        "lng": -97.8486123,
+        "website": null,
+        "address": null,
+        "locality": "Kenedy",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.3076774,
+        "lng": -96.6319231,
+        "website": null,
+        "address": null,
+        "locality": "Kosse",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.2615068,
+        "lng": -97.2380725,
+        "website": null,
+        "address": null,
+        "locality": "Krum",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 30.046122,
+        "lng": -95.0369896,
+        "website": null,
+        "address": null,
+        "locality": "Liberty",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.5631924,
+        "lng": -97.1416768,
+        "website": "https://frontierwaste.com/city-of-mansfield/",
+        "address": null,
+        "locality": "Mansfield",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.3062874,
+        "lng": -96.89804389999999,
+        "website": null,
+        "address": null,
+        "locality": "Marlin",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.8084605,
+        "lng": -98.1128223,
+        "website": "https://frontierwaste.com/city-of-mineral-wells/",
+        "address": null,
+        "locality": "Mineral Wells",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.0187622,
+        "lng": -97.60835510000001,
+        "website": null,
+        "address": null,
+        "locality": "Morgan",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.09917,
+        "lng": -97.4463899,
+        "website": null,
+        "address": null,
+        "locality": "New Fairview",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.0916946,
+        "lng": -97.29207489999999,
+        "website": null,
+        "address": null,
+        "locality": "Newport",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.0296309,
+        "lng": -96.11468049999999,
+        "website": null,
+        "address": null,
+        "locality": "Normangee",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 27.9566843,
+        "lng": -97.9369447,
+        "website": null,
+        "address": null,
+        "locality": "Orange Grove",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.6012767,
+        "lng": -95.31883599999999,
+        "website": "https://frontierwaste.com/city-of-pasadena/",
+        "address": null,
+        "locality": "Pasadena",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.6012767,
+        "lng": -95.31883599999999,
+        "website": "https://frontierwaste.com/city-of-pearland/",
+        "address": null,
+        "locality": "Pearland",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.9685988,
+        "lng": -99.9018131,
+        "website": null,
+        "address": null,
+        "locality": "Reno",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.4748925,
+        "lng": -96.92332569999999,
+        "website": null,
+        "address": null,
+        "locality": "Riesel",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.2334808,
+        "lng": -97.3744605,
+        "website": null,
+        "address": null,
+        "locality": "Rio Vista",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.6395776,
+        "lng": -96.53832279999999,
+        "website": "https://frontierwaste.com/city-of-seagoville/",
+        "address": null,
+        "locality": "Seagoville",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.9659566,
+        "lng": -97.68363839999999,
+        "website": null,
+        "address": null,
+        "locality": "Springtown",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 29.3784838,
+        "lng": -98.3015278,
+        "website": null,
+        "address": null,
+        "locality": "St. Hedwig",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 27.9789074,
+        "lng": -97.3986041,
+        "website": null,
+        "address": null,
+        "locality": "Taft",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.4110077,
+        "lng": -96.57220129999999,
+        "website": null,
+        "address": null,
+        "locality": "Thornton",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.2068421,
+        "lng": -97.3027824,
+        "website": "https://frontierwaste.com/city-of-troy/",
+        "address": null,
+        "locality": "Troy",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.4334742,
+        "lng": -97.10250769999999,
+        "website": "https://frontierwaste.com/city-of-venus/",
+        "address": null,
+        "locality": "Venus",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.8579056,
+        "lng": -97.25473710000001,
+        "website": "https://frontierwaste.com/city-of-watauga/",
+        "address": null,
+        "locality": "Watauga",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.9685988,
+        "lng": -99.9018131,
+        "website": null,
+        "address": null,
+        "locality": "West",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 32.7597739,
+        "lng": -97.45909859999999,
+        "website": "https://frontierwaste.com/city-of-white-settlement/",
+        "address": null,
+        "locality": "White Settlement",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 33.6562183,
+        "lng": -96.906948,
+        "website": "https://frontierwaste.com/city-of-whitesboro/",
+        "address": null,
+        "locality": "Whitesboro",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.507957427257892,
+        "lng": -97.2292713329136,
+        "website": null,
+        "address": null,
+        "locality": "Woodway",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }
+    },
+    {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.65925215536761,
+        "lng": -97.4724177555061,
+        "website": null,
+        "address": null,
+        "locality": "Valley Mills",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }},
+        {
+        "name": "Frontier Waste Solutions",   
+        "lat": 28.81852668891915,
+        "lng": -97.85241633734375,
+        "website": null,
+        "address": null,
+        "locality": "Kenedy",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }},
+        {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.384719370049307,
+        "lng": -97.21470622942861,
+        "website": null,
+        "address": null,
+        "locality": "Lorena",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }},
+        {
+        "name": "Frontier Waste Solutions",  
+        "lat": 33.267620995450535,
+        "lng": -97.23030302327942,
+        "website": null,
+        "address": null,
+        "locality": "Krum",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }},
+        {
+        "name": "Frontier Waste Solutions", 
+        "lat": 33.2676927599596,
+        "lng": -97.2292713329136,
+        "website": null,
+        "address": null,
+        "locality": "Jewett",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }},
+        {
+        "name": "Frontier Waste Solutions",
+        "lat": 31.507957427257892,
+        "lng": -97.2306463460089,
+        "website": null,
+        "address": null,
+        "locality": "Hubbard",
+        "Administrative": "TX",
+        "Country": null,
+        "postalCode": null,
+        "primaryPhone": null,
+        "hours": {
+            "Monday_hours": null,
+            "Tuesday_hours": null,
+            "Wednesday_hours": null,
+            "Thursday_hours": null,
+            "Friday_hours": null,
+            "Saturday_hours": null,
+            "Sunday_hours": null
+        }},
+    
+    
+];
+
+ cities.forEach(function(city) {
+        var isAddressComplete = city.address && city.Country && city.postalCode;
+        var position = new google.maps.LatLng(city.lat, city.lng);
+        bounds.extend(position); // Extending the bounds to include this marker's position
+
+        // Determine whether to use a custom logo or default marker
+        var icon = isAddressComplete ? {
+            url: 'map3/logo.png', // Custom logo
+            scaledSize: new google.maps.Size(50, 50),
+            anchor: new google.maps.Point(20, 20)
+        } : null; // Default marker
+
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: city.name,
+            icon: icon
+        });
+    marker.addListener('click', function() {
+        showOptions(marker, city, map);
+    });
+});// Adjusting the map's viewport to fit the bounds that include all markers
+    map.fitBounds(bounds);
+
+    // Optional: Adjust the zoom level after the fitBounds call
+    var listener = google.maps.event.addListener(map, "idle", function() {
+        if (map.getZoom() > 16) map.setZoom(16);
+        google.maps.event.removeListener(listener);
+    });
+}
+
+        
+        // Define a global variable to keep track of the current open infoWindow
+        var currentOpenInfoWindow = null;
+
+        function showOptions(marker, city, map) {
+    var visitWebsiteButton = city.website ? `<a href="${city.website}" target="_blank" class="btn btn-primary mt-2">Visit Website</a>` : '';
+    var cityDataString = encodeURIComponent(JSON.stringify(city));
+    var showDataButton = `<button class="btn btn-info mt-2" onclick='showCityData("${cityDataString}", this)'>Show Data</button>`;
+
+    var contentString = `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${city.name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${city.locality}, ${city.Administrative}</h6>
+                <p class="card-text">${city.address}, ${city.Country}</p>
+                ${visitWebsiteButton}
+                ${showDataButton}
+            </div>
+        </div>
+    `;
+
+    // If the marker's info window is already open, close it and reset the currentOpenInfoWindow variable
+    if (currentOpenInfoWindow === marker.infowindow) {
+        currentOpenInfoWindow.close();
+        currentOpenInfoWindow = null;
+    } else {
+        // Close the current info window if it's open
+        if (currentOpenInfoWindow) {
+            currentOpenInfoWindow.close();
+        }
+
+        // Create a new info window for the marker if it doesn't already have one
+        if (!marker.infowindow) {
+            marker.infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+        }
+
+        // Open the new info window and set it as the current open window
+        marker.infowindow.open(map, marker);
+        currentOpenInfoWindow = marker.infowindow;
+    }
+}
+
+// Function to show or hide city data in the sidebar
+function showCityData(cityDataString, button) {
+    var sidebar = document.getElementById('sidebar');
+    var sidebarTitle = document.getElementById('sidebar-title');
+    
+    // Check if the sidebar is already showing this city's data
+    if (sidebar.getAttribute('data-current-city') === cityDataString) {
+        // If so, collapse the sidebar and show the title
+        sidebar.innerHTML = '';
+        sidebar.style.display = 'none';
+        sidebar.removeAttribute('data-current-city');
+        sidebarTitle.style.display = 'block';
+        button.textContent = 'Show Data'; // Update button text
+    } else {
+        // If not, display the new city's data
+        var city = JSON.parse(decodeURIComponent(cityDataString));
+        var hoursContent = '';
+        if (city.hours) {
+            hoursContent = '<ul>';
+            Object.keys(city.hours).forEach(function(hourKey) {
+                hoursContent += `<li>${hourKey.replace('_', ' ')}: ${city.hours[hourKey]}</li>`;
+            });
+            hoursContent += '</ul>';
+        }
+
+        var cityData = `<h3>${escapeHTML(city.name)}</h3>` +
+            `<p>Address: ${escapeHTML(city.address)}, ${escapeHTML(city.locality)}, ${escapeHTML(city.Administrative)}, ${escapeHTML(city.Country)}, ${escapeHTML(city.postalCode)}</p>` +
+            `<p>Primary Phone: ${escapeHTML(city.primaryPhone)}</p>` +
+            `<p>Website: <a href="${escapeHTML(city.website)}" target="_blank">${escapeHTML(city.website)}</a></p>` +
+            `<p>Hours:</p>${hoursContent}`;
+
+        sidebar.innerHTML = cityData;
+        sidebar.style.display = 'block';
+        sidebar.setAttribute('data-current-city', cityDataString);
+        sidebarTitle.style.display = 'none';
+        button.textContent = 'Hide Data'; // Update button text
+    }
+}
+
+        // Helper function to escape HTML to prevent XSS
+        function escapeHTML(str) {
+            if (!str) return ''; // Handle undefined or null
+            return str.replace(/[&<>'"]/g, function(tag) {
+                return ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                })[tag] || tag;
+                
+
+    });
+}
+    </script>
+</body>
+</html>
