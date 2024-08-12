@@ -11,6 +11,8 @@ CSS3: For styling the page and sidebar layout.
 JavaScript: For handling map interactions and dynamic content loading.
 Google Maps API: To display the map and markers.
 Bootstrap: For responsive design and styling components.
+![Screenshot 2024-07-17 032054](https://github.com/user-attachments/assets/cb7c60d2-2c9f-4c5f-b6c9-fb1882979c24)
+
 Getting Started
 Prerequisites
 To run this project locally, ensure you have a working internet connection as it relies on external APIs and libraries.
